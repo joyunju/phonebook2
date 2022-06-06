@@ -13,18 +13,23 @@ public class WebUtil {
 
 	// 생성자
 
-	// gs
+	// 메소드 gs
 
-	// 일반
+	// 메소드 일반
+	// 포워드
 	public static void forward(HttpServletRequest request, HttpServletResponse response, String path)
 			throws ServletException, IOException {
+
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 	}
 
+	// 리다이렉트
 	public static void redirect(HttpServletRequest request, HttpServletResponse response, String url)
 			throws IOException {
+
 		response.sendRedirect(url);
+
 	}
 
 }
