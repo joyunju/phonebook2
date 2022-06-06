@@ -2,19 +2,10 @@ package com.javaex.vo;
 
 public class PersonVo {
 
-	// 필드
 	private int personId;
 	private String name;
 	private String hp;
 	private String company;
-
-	// 생성자
-	public PersonVo() {
-	}
-
-	public PersonVo(int personId) {
-		this.personId = personId;
-	}
 
 	public PersonVo(String name, String hp, String company) {
 		this.name = name;
@@ -29,7 +20,6 @@ public class PersonVo {
 		this.company = company;
 	}
 
-	// gs
 	public int getPersonId() {
 		return personId;
 	}
@@ -62,7 +52,6 @@ public class PersonVo {
 		this.company = company;
 	}
 
-	// 일반
 	@Override
 	public String toString() {
 		return "PersonVo [personId=" + personId + ", name=" + name + ", hp=" + hp + ", company=" + company + "]";
