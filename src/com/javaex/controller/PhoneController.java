@@ -14,6 +14,7 @@ import com.javaex.util.WebUtil;
 import com.javaex.vo.PersonVo;
 
 @WebServlet("/pbc")
+//호출 : localhost:8088/phonebook2/pbc
 public class PhoneController extends HttpServlet {
 	// 필드
 	private static final long serialVersionUID = 1L;
@@ -30,6 +31,7 @@ public class PhoneController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// action파라미터 꺼내기
+		// 모든 기능을 담당하는 controller에게 특정 임무를 구분지어 부여(원하는 임무 수행 의사표시)
 		String action = request.getParameter("action");
 		System.out.println(action);
 
@@ -39,24 +41,25 @@ public class PhoneController extends HttpServlet {
 			List<PersonVo> phoneList = phoneDao.getPersonList();
 			System.out.println(phoneList);
 
-			// request에 데이터 추가
+			// request에 데이터 추가 : 내부 db 추가
 			request.setAttribute("pList", phoneList);
 
 			// 데이터 + html --> jsp 시킨다
+			// forward & redirect 스태틱 인용
 			WebUtil.forward(request, response, "/WEB-INF/list.jsp");
 
-			/*
-			 * RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
-			 * rd.forward(request, response);
-			 */
+//			 RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
+//			 rd.forward(request, response);
+
 		} else if ("writeForm".equals(action)) { // 등록폼일때
 
 			// 포워드
 			WebUtil.forward(request, response, "/WEB-INF/writeForm.jsp");
-			/*
-			 * RequestDispatcher rd = request.getRequestDispatcher("/writeForm.jsp");
-			 * rd.forward(request, response);
-			 */
+			
+//			RequestDispatcher rd = request.getRequestDispatcher("/writeForm.jsp");
+//			rd.forward(request, response);
+			
+			
 		} else if ("write".equals(action)) { // 등록일때
 
 			// 파라미터에서 값 꺼내기(name, hp ,company)
@@ -70,14 +73,16 @@ public class PhoneController extends HttpServlet {
 
 			// phoneDao.personInsert()를 통해 저장하기
 			PhoneDao phoneDao = new PhoneDao();
+			
 			int count = phoneDao.personInsert(personVo);
 			System.out.println(count);
 
 			// 리다이렉트 list
 			WebUtil.redirect(request, response, "./pbc?action=list");
-			/*
-			 * response.sendRedirect("./pbc?action=list");
-			 */
+			
+			//response.sendRedirect("./pbc?action=list");
+			//response.sendRedirect("/phonebook2/pbc?action=list");
+			
 
 		} else if ("delete".equals(action)) { // 삭제일때
 
@@ -90,9 +95,8 @@ public class PhoneController extends HttpServlet {
 
 			// 리다이렉트 list
 			WebUtil.redirect(request, response, "./pbc?action=list");
-			/*
-			 * response.sendRedirect("./pbc?action=list");
-			 */
+			// response.sendRedirect("./pbc?action=list");
+
 		} else {
 			System.out.println("action 파라미터 없음");
 		}
