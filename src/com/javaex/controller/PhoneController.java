@@ -3,6 +3,7 @@ package com.javaex.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +14,27 @@ import com.javaex.dao.PhoneDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.PersonVo;
 
+
+//@WebServlet("/PhoneController")
+//이름 변경
 @WebServlet("/pbc")
 //호출 : localhost:8088/phonebook2/pbc
 public class PhoneController extends HttpServlet {
+	
 	// 필드
 	private static final long serialVersionUID = 1L;
 
 	// 생성자 (기본생성자 사용)
+	
 	// 메소드 -gs
 
 	// 메소드 -일반
 	// get방식으로 요청시 호출 메소드
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		//코드 작성
+		System.out.println("PhoneController");
 
 		// 포스트 방식일때 한글깨짐 방지
 		request.setCharacterEncoding("UTF-8");
@@ -45,21 +54,21 @@ public class PhoneController extends HttpServlet {
 			request.setAttribute("pList", phoneList);
 
 			// 데이터 + html --> jsp 시킨다
+//			RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
+//			rd.forward(request, response);		
 			// forward & redirect 스태틱 인용
 			WebUtil.forward(request, response, "/WEB-INF/list.jsp");
 
-//			 RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
-//			 rd.forward(request, response);
+
 
 		} else if ("writeForm".equals(action)) { // 등록폼일때
 
 			// 포워드
 			WebUtil.forward(request, response, "/WEB-INF/writeForm.jsp");
-			
+
 //			RequestDispatcher rd = request.getRequestDispatcher("/writeForm.jsp");
 //			rd.forward(request, response);
-			
-			
+
 		} else if ("write".equals(action)) { // 등록일때
 
 			// 파라미터에서 값 꺼내기(name, hp ,company)
@@ -73,16 +82,15 @@ public class PhoneController extends HttpServlet {
 
 			// phoneDao.personInsert()를 통해 저장하기
 			PhoneDao phoneDao = new PhoneDao();
-			
+
 			int count = phoneDao.personInsert(personVo);
 			System.out.println(count);
 
 			// 리다이렉트 list
 			WebUtil.redirect(request, response, "./pbc?action=list");
-			
-			//response.sendRedirect("./pbc?action=list");
-			//response.sendRedirect("/phonebook2/pbc?action=list");
-			
+
+			// response.sendRedirect("./pbc?action=list");
+			// response.sendRedirect("/phonebook2/pbc?action=list");
 
 		} else if ("delete".equals(action)) { // 삭제일때
 
@@ -106,8 +114,9 @@ public class PhoneController extends HttpServlet {
 	// post방식으로 요청시 호출 메소드
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		System.out.println("여기는 post");
-
+		// doPost를 실행해도 doGet인데, 이 둘의 차이점은?
 		doGet(request, response);
 	}
 
