@@ -6,8 +6,9 @@
 <%@ page import="com.javaex.vo.PersonVo" %>
 
 <%
-	
 	List<PersonVo> personList = (List<PersonVo>)request.getAttribute("pList");
+
+	//List<PersonVo> personList = request.getAttribute("pList");
 	
 	//사용하면 안됨
 	//PhoneDao phoneDao = new PhoneDao();
@@ -21,10 +22,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>list</title>
 </head>
 <body>
-
+	
 	<h1>전화번호부</h1>
 
 	<h2>리스트</h2>
