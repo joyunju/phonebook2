@@ -43,7 +43,10 @@ public class PhoneController extends HttpServlet {
 		// 모든 기능을 담당하는 controller에게 특정 임무를 구분지어 부여(원하는 임무 수행 의사표시)
 		String action = request.getParameter("action");
 		System.out.println(action);
-
+		
+		// if(action.equals("list")){} -> 이렇게 작성
+		//getParameter("action")의 action 값이 null이 되면 꺼지니까
+		// 아래와 같이 작성하는게 좋음 
 		if ("list".equals(action)) { // 리스트일때
 			// 데이터 가져오기
 			PhoneDao phoneDao = new PhoneDao();
